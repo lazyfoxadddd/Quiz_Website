@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4">Create New Quiz</h1>
+    <form method="POST" id="quiz-form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
+                Quiz Title
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
+                   type="text" name="title" id="title" required>
+        </div>
+        
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="timer">
+                Timer (minutes)
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight"
+                   type="number" name="timer" id="timer" required min="1">
+        </div>
+
+        <div id="questions-container">
+            <!-- Questions will be added here dynamically -->
+        </div>
+
+        <input type="hidden" name="question_count" id="question_count" value="0">
+
+        <button type="button" onclick="addQuestion()"
+                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4">
+            Add Question
+        </button>
+
+        <button type="submit"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Create Quiz
+        </button>
+    </form>
+</div>
+
+<script>
+let questionCount = 0;
+
+function addQuestion() {
+    const questionsContainer = document.getElementById('questions-container');
+    const questionDiv = document.createElement('div');
+    questionDiv.className = 'mb-6 p-4 border rounded';
+    questionDiv.innerHTML = `
+        <h3 class="font-bold mb-2">Question ${questionCount + 1}</h3>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Question Text</label>
+            <input type="text" name="question_text_${questionCount}" required
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
+        </div>
+        <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Option A</label>
+            <input type="text" name="option_a_${questionCount}" required
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
+        </div>
+        <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Option B</label>
+            <input type="text" name="option_b_${questionCount}" required
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
+        </div>
+        <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Option C</label>
+            <input type="text" name="option_c_${questionCount}" required
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
+        </div>
+        <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Option D</label>
+            <input type="text" name="option_d_${questionCount}" required
+                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
+        </div>
+        <div class="mb-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Correct Answer</label>
+            <select name="correct_answer_${questionCount}" required
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
+                <option value="option_a">Option A</option>
+                <option value="option_b">Option B</option>
+                <option value="option_c">Option C</option>
+                <option value="option_d">Option D</option>
+            </select>
+        </div>
+    `;
+    questionsContainer.appendChild(questionDiv);
+    questionCount++;
+    document.getElementById('question_count').value = questionCount;
+}
+</script>
+{% endblock %}

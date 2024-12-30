@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+    <div class="p-8">
+        <h2 class="text-2xl font-bold mb-4">Join a Quiz</h2>
+        <form method="POST">
+            <div class="mb-4">
+                <label for="share_code" class="block text-gray-700 text-sm font-bold mb-2">Enter Quiz Code</label>
+                <input type="text" id="share_code" name="share_code" required
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Join Quiz
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
